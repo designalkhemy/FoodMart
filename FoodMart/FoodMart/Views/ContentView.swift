@@ -15,9 +15,8 @@ struct ContentView: View {
     var body: some View {
         
         NavigationStack {
-            List(foodItems) { foodItem in
-                Text(foodItem.name)
-            }
+            FoodItemsView(foodItems: foodItems, categories: categories)
+                .padding()
         }
         .task(loadData)
         
