@@ -12,11 +12,33 @@ struct ContentView: View {
     @State private var foodItems = [FoodItem]()
     @State private var categories = [Category]()
     
+    @State private var selectedCategories: Set<String> = []
+    @State private var showFilter = false
+    
+    var filteredFoodItems: [FoodItem] {
+        guard !selectedCategories.isEmpty else { return foodItems }
+        
+        return foodItems.filter{ selectedCategories.contains($0.category_uuid) }
+    }
+    
     var body: some View {
         
         NavigationStack {
-            FoodItemsView(foodItems: foodItems, categories: categories)
+            FoodItemsView(foodItems: filteredFoodItems, categories: categories)
                 .padding()
+                .navigationTitle("Food")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Filter") {
+                            showFilter = true
+                        }
+                    }
+                }
+                .sheet(isPresented: $showFilter) {
+                    FilterView(categories: categories, selectedCategories: $selectedCategories)
+                        .padding()
+                        .presentationDetents([.fraction(0.35)])
+                }
         }
         .task(loadData)
         
