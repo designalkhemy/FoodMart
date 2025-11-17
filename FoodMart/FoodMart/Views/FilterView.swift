@@ -14,7 +14,7 @@ struct FilterView: View {
     
     var body: some View {
         VStack {
-            ForEach(categories) { category in
+            ForEach(categories.sorted(by: { $0.name < $1.name})) { category in
                 Toggle(category.name, isOn: Binding(
                     get: { selectedCategories.contains(category.uuid) },
                     set: { isSelected in

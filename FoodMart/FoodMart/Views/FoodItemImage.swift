@@ -19,11 +19,9 @@ struct FoodItemImage: View {
             case .success(let image):
                 image
                     .resizable()
-                    .aspectRatio(1, contentMode: .fill)
             default:
                 Rectangle()
                     .fill(.gray.opacity(0.5))
-                    .aspectRatio(1, contentMode: .fill)
             }
         }
     }

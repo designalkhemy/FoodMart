@@ -28,6 +28,7 @@ struct FoodItemsView: View {
                     
                     VStack(alignment: .leading) {
                         FoodItemImage(imageURL: foodItem.image_url)
+                            .aspectRatio(1, contentMode: .fill)
                             .clipShape(.rect(cornerRadius: 10))
                         
                         Text("$\(foodItem.price.formatted(.number))")
