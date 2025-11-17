@@ -23,14 +23,19 @@ extension ContentView {
         var selectedCategories: Set<String> = []
         var showFilter = false
         
+        /// Array of food items that matches the selected categories, or
+        /// all food items if no categories are selected
         var filteredFoodItems: [FoodItem] {
             guard !selectedCategories.isEmpty else { return foodItems }
             
             return foodItems.filter{ selectedCategories.contains($0.category_uuid) }
         }
         
+        
         func loadData() async {
+            loadState = .loading
             
+            /// Fetch both food items and categories
             do {
                 let foodItemsUrl = URL(string: "https://7shifts.github.io/mobile-takehome/api/food_items.json")!
                 let (foodItemsData, _) = try await URLSession.shared.data(from: foodItemsUrl)

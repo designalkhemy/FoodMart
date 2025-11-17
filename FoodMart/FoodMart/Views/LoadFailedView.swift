@@ -34,6 +34,6 @@ struct LoadFailedView: View {
 
 #Preview {
     LoadFailedView() {
-        
+        // do nothing
     }
 }
