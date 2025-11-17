@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4C5A7D622ECBB2CF001AB572 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4C5A7D612ECBB27F001AB572 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4C5A7D192ECA40C2001AB572 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		4C5A7D0B2ECA40C1001AB572 /* FoodMart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodMart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5A7D182ECA40C2001AB572 /* FoodMartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodMartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5A7D222ECA40C2001AB572 /* FoodMartUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodMartUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C5A7D612ECBB27F001AB572 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -79,6 +84,7 @@
 				4C5A7D1B2ECA40C2001AB572 /* FoodMartTests */,
 				4C5A7D252ECA40C2001AB572 /* FoodMartUITests */,
 				4C5A7D0C2ECA40C1001AB572 /* Products */,
+				4C5A7D612ECBB27F001AB572 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5A7D622ECBB2CF001AB572 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
