@@ -27,23 +27,8 @@ struct FoodItemsView: View {
                 ForEach(foodItems) { foodItem in
                     
                     VStack(alignment: .leading) {
-                        AsyncImage(url: foodItem.image_url) { phase in
-                            switch phase {
-                            case .empty:
-                                ProgressView()
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fill)
-                                    .clipShape(.rect(cornerRadius: 10))
-                            default:
-                                Rectangle()
-                                    .fill(.gray)
-                                    .aspectRatio(1, contentMode: .fill)
-                                    
-                            }
-                            
-                        }
+                        FoodItemImage(imageURL: foodItem.image_url)
+                            .clipShape(.rect(cornerRadius: 10))
                         
                         Text("$\(foodItem.price.formatted(.number))")
                             .font(.title2)
@@ -53,7 +38,7 @@ struct FoodItemsView: View {
                         Text(categoryLookup[foodItem.category_uuid] ?? "Unknown")
                             .font(.footnote)
                     }
-                    .padding(10)
+                    .padding(5)
                 }
             }
         }
@@ -61,5 +46,5 @@ struct FoodItemsView: View {
 }
 
 #Preview {
-    FoodItemsView(foodItems: [.example, .example], categories: [.exampleCategory])
+    FoodItemsView(foodItems: [.example], categories: [.exampleCategory])
 }

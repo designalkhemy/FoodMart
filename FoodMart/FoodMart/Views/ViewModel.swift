@@ -1,0 +1,54 @@
+//
+//  ViewModel.swift
+//  FoodMart
+//
+//  Created by Jennifer on 2025-11-17.
+//
+
+import Foundation
+
+extension ContentView {
+    
+    enum LoadState {
+        case loading, loaded, failed
+    }
+    
+    @Observable @MainActor
+    class ViewModel {
+        private(set) var foodItems = [FoodItem]()
+        private(set) var categories = [Category]()
+        
+        private(set) var loadState = LoadState.loading
+        
+        var selectedCategories: Set<String> = []
+        var showFilter = false
+        
+        var filteredFoodItems: [FoodItem] {
+            guard !selectedCategories.isEmpty else { return foodItems }
+            
+            return foodItems.filter{ selectedCategories.contains($0.category_uuid) }
+        }
+        
+        func loadData() async {
+            
+            do {
+                let foodItemsUrl = URL(string: "https://7shifts.github.io/mobile-takehome/api/food_items.json")!
+                let (foodItemsData, _) = try await URLSession.shared.data(from: foodItemsUrl)
+                let foodItemsDecoder = JSONDecoder()
+                foodItems = try foodItemsDecoder.decode([FoodItem].self, from: foodItemsData)
+                
+                let categoriesUrl = URL(string: "https://7shifts.github.io/mobile-takehome/api/food_item_categories.json")!
+                let (categoriesData, _) = try await URLSession.shared.data(from: categoriesUrl)
+                let categoriesDecoder = JSONDecoder()
+                categories = try categoriesDecoder.decode([Category].self, from: categoriesData)
+                
+                loadState = .loaded
+            } catch {
+                print(error.localizedDescription)
+                loadState = .failed
+            }
+            
+        }
+        
+    }
+}
