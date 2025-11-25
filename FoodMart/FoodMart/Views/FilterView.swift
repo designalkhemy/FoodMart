@@ -12,6 +12,8 @@ struct FilterView: View {
     let categories: [Category]
     @Binding var selectedCategories: Set<String>
     
+    var saveFilter: () -> Void
+    
     var body: some View {
         VStack {
             ForEach(categories.sorted(by: { $0.name < $1.name})) { category in
@@ -23,13 +25,18 @@ struct FilterView: View {
                         } else {
                             selectedCategories.remove(category.uuid)
                         }
+                        saveFilter()
                     }
                 ))
             }
         }
     }
+    
+    
 }
 
 #Preview {
-    FilterView(categories: [.exampleCategory], selectedCategories: .constant([]))
+    FilterView(categories: [.exampleCategory], selectedCategories: .constant([])) {
+        
+    }
 }

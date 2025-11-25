@@ -31,7 +31,9 @@ struct ContentView: View {
                         }
                     }
                     .sheet(isPresented: $viewModel.showFilter) {
-                        FilterView(categories: viewModel.categories, selectedCategories: $viewModel.selectedCategories)
+                        FilterView(categories: viewModel.categories, selectedCategories: $viewModel.selectedCategories) {
+                            viewModel.saveFilter()
+                        }
                             .padding()
                             .presentationDetents([.fraction(0.35)])
                     }

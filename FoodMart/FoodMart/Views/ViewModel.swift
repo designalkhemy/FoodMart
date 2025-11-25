@@ -48,11 +48,20 @@ extension ContentView {
                 categories = try categoriesDecoder.decode([Category].self, from: categoriesData)
                 
                 loadState = .loaded
+                loadFilter()
             } catch {
                 print(error.localizedDescription)
                 loadState = .failed
             }
             
+        }
+        
+        func saveFilter() {
+            UserDefaults.standard.set(Array(selectedCategories), forKey: "selectedCategories")
+        }
+        
+        func loadFilter() {
+            selectedCategories = Set(UserDefaults.standard.array(forKey: "selectedCategories") as? [String] ?? [])
         }
         
     }
