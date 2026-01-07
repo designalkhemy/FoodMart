@@ -20,7 +20,7 @@ struct ContentView: View {
             case .failed:
                 LoadFailedView(retry: viewModel.loadData)
             default:
-                FoodItemsView(foodItems: viewModel.filteredFoodItems, categories: viewModel.categories)
+                FoodItemsView(foodItems: viewModel.filteredFoodItems, categories: viewModel.categories, basketItems: $viewModel.basketItems, addToBasket: viewModel.addToBasket)
                     .padding()
                     .navigationTitle("Food")
                     .toolbar {
@@ -29,13 +29,21 @@ struct ContentView: View {
                                 viewModel.showFilter = true
                             }
                         }
+                        
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button("Basket", systemImage: "basket") {
+                                viewModel.showBasket = true
+                            }
+                            .badge(viewModel.basketItems.reduce(0) { $0 + $1.count})
+                        }
                     }
                     .sheet(isPresented: $viewModel.showFilter) {
-                        FilterView(categories: viewModel.categories, selectedCategories: $viewModel.selectedCategories) {
-                            viewModel.saveFilter()
-                        }
+                        FilterView(categories: viewModel.categories, selectedCategories: $viewModel.selectedCategories, saveFilter: viewModel.saveFilter)
                             .padding()
                             .presentationDetents([.fraction(0.35)])
+                    }
+                    .sheet(isPresented: $viewModel.showBasket) {
+                        BasketView(basketItems: $viewModel.basketItems, addToBasket: viewModel.addToBasket)
                     }
             }
         }

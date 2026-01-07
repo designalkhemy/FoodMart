@@ -23,6 +23,9 @@ extension ContentView {
         var selectedCategories: Set<String> = []
         var showFilter = false
         
+        var basketItems: [BasketItem] = []
+        var showBasket = false
+        
         /// Array of food items that matches the selected categories, or
         /// all food items if no categories are selected
         var filteredFoodItems: [FoodItem] {
@@ -57,11 +60,28 @@ extension ContentView {
         }
         
         func saveFilter() {
-            UserDefaults.standard.set(Array(selectedCategories), forKey: "selectedCategories")
+            if let encoded = try? JSONEncoder().encode(selectedCategories) {
+                UserDefaults.standard.set(encoded, forKey: "selectedCategories")
+            }
+//            UserDefaults.standard.set(Array(selectedCategories), forKey: "selectedCategories")
         }
         
         func loadFilter() {
-            selectedCategories = Set(UserDefaults.standard.array(forKey: "selectedCategories") as? [String] ?? [])
+            if let savedData = UserDefaults.standard.data(forKey: "selectedCategories") {
+                if let decoded = try? JSONDecoder().decode(Set<String>.self, from: savedData) {
+                    selectedCategories = decoded
+                    return
+                }
+            }
+            selectedCategories = []
+        }
+        
+        func addToBasket(_ foodItem: FoodItem) {
+            if let index = basketItems.firstIndex(where: { $0.foodItem.uuid ==  foodItem.uuid}) {
+                basketItems[index].count += 1
+            } else {
+                basketItems.append(BasketItem(foodItem: foodItem, count: 1))
+            }
         }
         
     }

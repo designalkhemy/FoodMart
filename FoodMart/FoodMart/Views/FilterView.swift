@@ -37,6 +37,6 @@ struct FilterView: View {
 
 #Preview {
     FilterView(categories: [.exampleCategory], selectedCategories: .constant([])) {
-        
+        // do nothing
     }
 }
