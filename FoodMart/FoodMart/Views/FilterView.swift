@@ -29,6 +29,10 @@ struct FilterView: View {
                     }
                 ))
             }
+            
+            Button("Clear Filter") {
+                selectedCategories.removeAll()
+            }
         }
     }
     

@@ -20,22 +20,36 @@ struct ContentView: View {
             case .failed:
                 LoadFailedView(retry: viewModel.loadData)
             default:
-                FoodItemsView(foodItems: viewModel.filteredFoodItems, categories: viewModel.categories, basketItems: $viewModel.basketItems, addToBasket: viewModel.addToBasket)
+                FoodItemsView(foodItems: viewModel.sortedFoodItems, categories: viewModel.categories, basketItems: $viewModel.basketItems, addToBasket: viewModel.addToBasket)
                     .padding()
                     .navigationTitle("Food")
+                    .searchable(text: $viewModel.searchText)
                     .toolbar {
-                        ToolbarItem(placement: .topBarTrailing) {
-                            Button("Filter") {
-                                viewModel.showFilter = true
-                            }
-                        }
-                        
                         ToolbarItem(placement: .topBarLeading) {
                             Button("Basket", systemImage: "basket") {
                                 viewModel.showBasket = true
                             }
                             .badge(viewModel.basketItems.reduce(0) { $0 + $1.count})
                         }
+                        
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Menu("Sort") {
+                                Picker("Sort", selection: $viewModel.sortBy) {
+                                    Text("Name (A-Z")
+                                        .tag(SortBy.name)
+                                    
+                                    Text("Price (low-high)")
+                                        .tag(SortBy.price)
+                                }
+                            }
+                        }
+                        
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Filter") {
+                                viewModel.showFilter = true
+                            }
+                        }
+                        
                     }
                     .sheet(isPresented: $viewModel.showFilter) {
                         FilterView(categories: viewModel.categories, selectedCategories: $viewModel.selectedCategories, saveFilter: viewModel.saveFilter)

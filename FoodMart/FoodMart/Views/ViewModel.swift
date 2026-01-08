@@ -13,12 +13,20 @@ extension ContentView {
         case loading, loaded, failed
     }
     
+    enum SortBy {
+        case name, price
+    }
+    
     @Observable @MainActor
     class ViewModel {
         private(set) var foodItems = [FoodItem]()
         private(set) var categories = [Category]()
         
+        var searchText = ""
+        
         private(set) var loadState = LoadState.loading
+        
+        var sortBy = SortBy.name
         
         var selectedCategories: Set<String> = []
         var showFilter = false
@@ -26,14 +34,30 @@ extension ContentView {
         var basketItems: [BasketItem] = []
         var showBasket = false
         
+        var searchedFoodItems: [FoodItem] {
+            if searchText.isEmpty {
+                foodItems
+            } else {
+                foodItems.filter { $0.name.localizedStandardContains(searchText)}
+            }
+        }
+        
         /// Array of food items that matches the selected categories, or
         /// all food items if no categories are selected
         var filteredFoodItems: [FoodItem] {
-            guard !selectedCategories.isEmpty else { return foodItems }
+            guard !selectedCategories.isEmpty else { return searchedFoodItems }
             
-            return foodItems.filter{ selectedCategories.contains($0.category_uuid) }
+            return searchedFoodItems.filter{ selectedCategories.contains($0.category_uuid) }
         }
         
+        var sortedFoodItems: [FoodItem] {
+            switch sortBy {
+            case .price:
+                return filteredFoodItems.sorted{ $0.price == $1.price ? $0.name < $1.name : $0.price < $1.price }
+            default:
+                return filteredFoodItems.sorted{ $0.name < $1.name }
+            }
+        }
         
         func loadData() async {
             loadState = .loading
