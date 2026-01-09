@@ -110,7 +110,7 @@ struct FoodMartTests {
         
         let sortedFoodItems = viewModel.sortedFoodItems
         
-        for i in 0..<(sortedFoodItems.count) {
+        for i in 0..<(sortedFoodItems.count - 1) {
             #expect(sortedFoodItems[i].name < sortedFoodItems[i+1].name, "When sorting by name, food items should be sorted alphabetically.")
         }
         
@@ -124,7 +124,7 @@ struct FoodMartTests {
         
         let sortedFoodItems = viewModel.sortedFoodItems
         
-        for i in 0..<(sortedFoodItems.count) {
+        for i in 0..<(sortedFoodItems.count - 1) {
             #expect(sortedFoodItems[i].price <= sortedFoodItems[i+1].price, "When sorting by price, food items should be sorted from lowest to highest.")
             if sortedFoodItems[i].price == sortedFoodItems[i+1].price {
                 #expect(sortedFoodItems[i].name < sortedFoodItems[i+1].name, "If 2 food items have the same price, they should still be sorted by name.")

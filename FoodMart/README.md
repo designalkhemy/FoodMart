@@ -11,6 +11,13 @@ iOS food marketplace app with category filtering and grid display built with Swi
 - Error handling with retry functionality
 - Responsive design that works across different iPhone sizes
 
+### Additional Features
+
+- Data persistence on filter
+- Search for food item by name
+- Sort foot items by name (A-Z) or price (low-high)
+- Basket feature where user can add food items to a basket with total expenses
+
 ## Requirements
 
 - iOS 18+
@@ -58,6 +65,17 @@ I wrote unit tests to verify core functionality using Swift Testing framework:
 - ✅ Filtering with single category displays only matching items
 - ✅ Filtering with multiple categories displays items from any selected category
 - ✅ Filtering with all categories selected displays all items
+- ✅ Clear filter button function
+- ✅ Search exact text
+- ✅ Search a non exixtant food item
+- ✅ Sort by name (A-Z)
+- ✅ Sort by price (low-high)
+- ✅ Basket is empty when opening app
+- ✅ Basket has one item and one entry when adding one item
+- ✅ Basket has two items and one entry when adding the same item
+- ✅ Basket removes one item and removes from basket completely if there is only one of that item left
+- ✅ Basket is empty when clearBasket function is called
+- ✅ Total amount is calculated properly when items are added and removed 
 
 **Run tests:**
 ```bash
@@ -123,6 +141,8 @@ Approximately 4-5 hours including:
 - Unit test writing
 - Error handling and polish
 - Documentation
+
+Extra time taken to add additional features.
 
 ---
 
