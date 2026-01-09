@@ -59,6 +59,10 @@ extension ContentView {
             }
         }
         
+        var totalAmount: Decimal {
+            return basketItems.reduce(0) { $0 + $1.foodItem.price * Decimal($1.count) }
+        }
+        
         func loadData() async {
             loadState = .loading
             
@@ -108,5 +112,23 @@ extension ContentView {
             }
         }
         
+        func removeFromBasket(_ foodItem: FoodItem, _ removeAll: Bool) {
+            if let index = basketItems.firstIndex(where: { $0.foodItem.uuid ==  foodItem.uuid}) {
+                
+                basketItems[index].count -= 1
+                
+                if basketItems[index].count == 0 || removeAll {
+                    basketItems.remove(at: index)
+                }
+            }
+        }
+        
+        func clearBasket() {
+            basketItems.removeAll()
+        }
+        
+        func clearFilter() {
+            selectedCategories.removeAll()
+        }
     }
 }

@@ -12,15 +12,10 @@ struct BasketView: View {
     @Binding var basketItems: [BasketItem]
     
     var addToBasket: (FoodItem) -> Void
+    var removeFromBasket: (FoodItem, Bool) -> Void
+    var clearBasket: () -> Void
     
-    var totalAmount: Decimal {
-        switch basketItems.count {
-        case 0:
-            return 0
-        default:
-            return basketItems.reduce(0) { $0 + $1.foodItem.price * Decimal($1.count) }
-        }
-    }
+    var totalAmount: Decimal
     
     var body: some View {
         switch basketItems.count {
@@ -94,25 +89,4 @@ struct BasketView: View {
         
     }
     
-    private func removeFromBasket(_ foodItem: FoodItem, _ removeAll: Bool) {
-        if let index = basketItems.firstIndex(where: { $0.foodItem.uuid ==  foodItem.uuid}) {
-            
-            basketItems[index].count -= 1
-            
-            if basketItems[index].count == 0 || removeAll {
-                basketItems.remove(at: index)
-            }
-        }
-    }
-    
-    private func clearBasket() {
-        basketItems.removeAll()
-    }
-}
-
-#Preview {
-    BasketView(
-        basketItems: .constant([BasketItem(foodItem: .example, count: 1)])) { _ in
-        // do nothing
-    }
 }

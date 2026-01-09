@@ -13,6 +13,7 @@ struct FilterView: View {
     @Binding var selectedCategories: Set<String>
     
     var saveFilter: () -> Void
+    var clearFilter: () -> Void
     
     var body: some View {
         VStack {
@@ -31,16 +32,10 @@ struct FilterView: View {
             }
             
             Button("Clear Filter") {
-                selectedCategories.removeAll()
+                clearFilter()
             }
         }
     }
     
     
-}
-
-#Preview {
-    FilterView(categories: [.exampleCategory], selectedCategories: .constant([])) {
-        // do nothing
-    }
 }

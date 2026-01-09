@@ -52,12 +52,12 @@ struct ContentView: View {
                         
                     }
                     .sheet(isPresented: $viewModel.showFilter) {
-                        FilterView(categories: viewModel.categories, selectedCategories: $viewModel.selectedCategories, saveFilter: viewModel.saveFilter)
+                        FilterView(categories: viewModel.categories, selectedCategories: $viewModel.selectedCategories, saveFilter: viewModel.saveFilter, clearFilter: viewModel.clearFilter)
                             .padding()
                             .presentationDetents([.fraction(0.35)])
                     }
                     .sheet(isPresented: $viewModel.showBasket) {
-                        BasketView(basketItems: $viewModel.basketItems, addToBasket: viewModel.addToBasket)
+                        BasketView(basketItems: $viewModel.basketItems, addToBasket: viewModel.addToBasket, removeFromBasket: viewModel.removeFromBasket, clearBasket: viewModel.clearBasket, totalAmount: viewModel.totalAmount)
                     }
             }
         }
